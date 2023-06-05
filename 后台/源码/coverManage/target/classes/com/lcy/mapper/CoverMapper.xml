@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lcy.mapper.CoverMapper">
+
+    <resultMap id="BaseResultMap" type="com.lcy.dao.Cover">
+            <id property="cid" column="cid" jdbcType="VARCHAR"/>
+            <result property="waterLevel" column="water_level" jdbcType="DECIMAL"/>
+            <result property="h2s" column="H2S" jdbcType="DECIMAL"/>
+            <result property="ch4" column="CH4" jdbcType="DECIMAL"/>
+            <result property="inclination" column="inclination" jdbcType="DECIMAL"/>
+            <result property="temperature" column="temperature" jdbcType="DECIMAL"/>
+            <result property="gpsEw" column="GPS-EW" jdbcType="INTEGER"/>
+            <result property="gpsNs" column="GPS-NS" jdbcType="INTEGER"/>
+            <result property="man" column="man" jdbcType="VARCHAR"/>
+            <result property="address" column="address" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        cid,water_level,H2S,
+        CH4,inclination,temperature,
+        GPS-EW,GPS-NS,man,
+        address
+    </sql>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        *
+        from cover
+        where  cid = #{cid,jdbcType=VARCHAR} 
+    </select>
+
+
+    <select id="selectAll" resultMap="BaseResultMap">
+        select
+          *
+         from cover
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        delete from cover
+        where  cid = #{cid,jdbcType=VARCHAR} 
+    </delete>
+    <insert id="insert" keyColumn="cid" keyProperty="cid" parameterType="com.lcy.dao.Cover" useGeneratedKeys="true">
+        insert into cover
+        ( cid,water_level,H2S
+        ,CH4,inclination,temperature
+        ,GPS-EW,GPS-NS,man
+        ,address)
+        values (#{cid,jdbcType=VARCHAR},#{waterLevel,jdbcType=DECIMAL},#{h2s,jdbcType=DECIMAL}
+        ,#{ch4,jdbcType=DECIMAL},#{inclination,jdbcType=DECIMAL},#{temperature,jdbcType=DECIMAL}
+        ,#{gpsEw,jdbcType=INTEGER},#{gpsNs,jdbcType=INTEGER},#{man,jdbcType=VARCHAR}
+        ,#{address,jdbcType=VARCHAR})
+    </insert>
+    <insert id="insertSelective" keyColumn="cid" keyProperty="cid" parameterType="com.lcy.dao.Cover" useGeneratedKeys="true">
+        insert into cover
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                <if test="cid != null">cid,</if>
+                <if test="waterLevel != null">water_level,</if>
+                <if test="h2s != null">H2S,</if>
+                <if test="ch4 != null">CH4,</if>
+                <if test="inclination != null">inclination,</if>
+                <if test="temperature != null">temperature,</if>
+                <if test="gpsEw != null">`GPS-EW`,</if>
+                <if test="gpsNs != null">`GPS-NS`,</if>
+                <if test="man != null">man,</if>
+                <if test="address != null">address,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+                <if test="cid != null">#{cid,jdbcType=VARCHAR},</if>
+                <if test="waterLevel != null">#{waterLevel,jdbcType=DECIMAL},</if>
+                <if test="h2s != null">#{h2s,jdbcType=DECIMAL},</if>
+                <if test="ch4 != null">#{ch4,jdbcType=DECIMAL},</if>
+                <if test="inclination != null">#{inclination,jdbcType=DECIMAL},</if>
+                <if test="temperature != null">#{temperature,jdbcType=DECIMAL},</if>
+                <if test="gpsEw != null">#{gpsEw,jdbcType=INTEGER},</if>
+                <if test="gpsNs != null">#{gpsNs,jdbcType=INTEGER},</if>
+                <if test="man != null">#{man,jdbcType=VARCHAR},</if>
+                <if test="address != null">#{address,jdbcType=VARCHAR},</if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.lcy.dao.Cover">
+        update cover
+        <set>
+                <if test="waterLevel != null">
+                    water_level = #{waterLevel,jdbcType=DECIMAL},
+                </if>
+                <if test="h2s != null">
+                    H2S = #{h2s,jdbcType=DECIMAL},
+                </if>
+                <if test="ch4 != null">
+                    CH4 = #{ch4,jdbcType=DECIMAL},
+                </if>
+                <if test="inclination != null">
+                    inclination = #{inclination,jdbcType=DECIMAL},
+                </if>
+                <if test="temperature != null">
+                    temperature = #{temperature,jdbcType=DECIMAL},
+                </if>
+                <if test="gpsEw != null">
+                    GPS-EW = #{gpsEw,jdbcType=INTEGER},
+                </if>
+                <if test="gpsNs != null">
+                    GPS-NS = #{gpsNs,jdbcType=INTEGER},
+                </if>
+                <if test="man != null">
+                    man = #{man,jdbcType=VARCHAR},
+                </if>
+                <if test="address != null">
+                    address = #{address,jdbcType=VARCHAR},
+                </if>
+        </set>
+        where   cid = #{cid,jdbcType=VARCHAR} 
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.lcy.dao.Cover">
+        update cover
+        set 
+            water_level =  #{waterLevel,jdbcType=DECIMAL},
+            H2S =  #{h2s,jdbcType=DECIMAL},
+            CH4 =  #{ch4,jdbcType=DECIMAL},
+            inclination =  #{inclination,jdbcType=DECIMAL},
+            temperature =  #{temperature,jdbcType=DECIMAL},
+            GPS-EW =  #{gpsEw,jdbcType=INTEGER},
+            GPS-NS =  #{gpsNs,jdbcType=INTEGER},
+            man =  #{man,jdbcType=VARCHAR},
+            address =  #{address,jdbcType=VARCHAR}
+        where   cid = #{cid,jdbcType=VARCHAR} 
+    </update>
+</mapper>

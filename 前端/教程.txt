@@ -1,0 +1,9 @@
+请提前安装好 node 和npm
+
+进入vue_cover目录  
+
+cmd  打开命令窗口
+
+输入  npm  run  serve
+
+等待项目启动

@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lcy.mapper.ConfigMapper">
+
+    <resultMap id="BaseResultMap" type="com.lcy.dao.Config">
+            <result property="cid" column="cid" jdbcType="INTEGER"/>
+            <result property="name" column="name" jdbcType="VARCHAR"/>
+            <result property="standard" column="standard" jdbcType="DECIMAL"/>
+            <result property="rangess" column="rangess" jdbcType="DECIMAL"/>
+            <result property="unit" column="unit" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        cid,name,standard,
+        rangess,unit
+    </sql>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from config
+        where 
+    </select>
+
+
+    <select id="selectAll" resultType="com.lcy.dao.Config">
+        select * from config
+    </select>
+
+    <select id="selectOneByName" resultType="com.lcy.dao.Config">
+        select * from config
+        where name=#{name}
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        delete from config
+        where 
+    </delete>
+    <insert id="insert">
+        insert into config
+        ( cid,name,standard
+        ,rangess,unit)
+        values (#{cid,jdbcType=INTEGER},#{name,jdbcType=VARCHAR},#{standard,jdbcType=DECIMAL}
+        ,#{rangess,jdbcType=DECIMAL},#{unit,jdbcType=VARCHAR})
+    </insert>
+    <insert id="insertSelective">
+        insert into config
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                <if test="cid != null">cid,</if>
+                <if test="name != null">name,</if>
+                <if test="standard != null">standard,</if>
+                <if test="rangess != null">rangess,</if>
+                <if test="unit != null">unit,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+                <if test="cid != null">#{cid,jdbcType=INTEGER},</if>
+                <if test="name != null">#{name,jdbcType=VARCHAR},</if>
+                <if test="standard != null">#{standard,jdbcType=DECIMAL},</if>
+                <if test="rangess != null">#{rangess,jdbcType=DECIMAL},</if>
+                <if test="unit != null">#{unit,jdbcType=VARCHAR},</if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.lcy.dao.Config">
+        update config
+        <set>
+                <if test="name != null">
+                    name = #{name,jdbcType=VARCHAR},
+                </if>
+                <if test="standard != null">
+                    standard = #{standard,jdbcType=DECIMAL},
+                </if>
+                <if test="rangess != null">
+                    rangess = #{rangess,jdbcType=DECIMAL},
+                </if>
+                <if test="unit != null">
+                    unit = #{unit,jdbcType=VARCHAR},
+                </if>
+        </set>
+        where
+            cid=#{cid}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.lcy.dao.Config">
+        update config
+        set 
+            cid =  #{cid,jdbcType=INTEGER},
+            name =  #{name,jdbcType=VARCHAR},
+            standard =  #{standard,jdbcType=DECIMAL},
+            rangess =  #{rangess,jdbcType=DECIMAL},
+            unit =  #{unit,jdbcType=VARCHAR}
+        where  
+    </update>
+</mapper>

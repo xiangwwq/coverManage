@@ -1,0 +1,6 @@
+1.数据库配置成功的前提下
+        username: root
+    password: 123456
+    url: jdbc:mysql://localhost:3306/covermanage?useSSL=false&useUnicode=true&characterEncoding=utf-8&serverTimezone=GMT&allowPublicKeyRetrieval=true
+    driver-class-name: com.mysql.cj.jdbc.Driver
+2.在当前窗口 cmd 命令行 java -jar  coverManage-1.0-SNAPSHOT.jar

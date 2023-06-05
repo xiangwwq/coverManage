@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lcy.mapper.LogMapper">
+
+    <resultMap id="BaseResultMap" type="com.lcy.dao.Log">
+            <result property="lid" column="lid" jdbcType="INTEGER"/>
+            <result property="man" column="man" jdbcType="VARCHAR"/>
+            <result property="cid" column="cid" jdbcType="INTEGER"/>
+            <result property="msg" column="msg" jdbcType="VARCHAR"/>
+            <result property="sendTime" column="send_time" jdbcType="TIMESTAMP"/>
+            <result property="state" column="state" jdbcType="TINYINT"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        lid,man,cid,
+        msg,send_time,state
+    </sql>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from log
+        where 
+    </select>
+
+
+    <select id="selectAll" resultMap="BaseResultMap">
+        select
+           lid,man,cid,msg,
+            DATE_FORMAT( send_time, '%Y-%m-%d %H:%i:%s' )  as send_time,
+            state
+            from log
+    </select>
+
+    <select id="selectAllByState" resultMap="BaseResultMap">
+        select * from log
+        where  state=0
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        delete from log
+        where 
+    </delete>
+
+
+    <delete id="deleteAll">
+          delete from log where  state=0
+    </delete>
+
+
+    <insert id="insert">
+        insert into log
+        ( man,cid
+        ,msg
+        )
+        values (#{man,jdbcType=VARCHAR},#{cid,jdbcType=INTEGER}
+        ,#{msg,jdbcType=VARCHAR})
+
+    </insert>
+    <insert id="insertSelective">
+        insert into log
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                <if test="lid != null">lid,</if>
+                <if test="man != null">man,</if>
+                <if test="cid != null">cid,</if>
+                <if test="msg != null">msg,</if>
+                <if test="sendTime != null">send_time,</if>
+                <if test="state != null">state,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+                <if test="lid != null">#{lid,jdbcType=INTEGER},</if>
+                <if test="man != null">#{man,jdbcType=VARCHAR},</if>
+                <if test="cid != null">#{cid,jdbcType=INTEGER},</if>
+                <if test="msg != null">#{msg,jdbcType=VARCHAR},</if>
+                <if test="sendTime != null">#{sendTime,jdbcType=TIMESTAMP},</if>
+                <if test="state != null">#{state,jdbcType=TINYINT},</if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.lcy.dao.Log">
+        update log
+        <set>
+                <if test="lid != null">
+                    lid = #{lid,jdbcType=INTEGER},
+                </if>
+                <if test="man != null">
+                    man = #{man,jdbcType=VARCHAR},
+                </if>
+                <if test="cid != null">
+                    cid = #{cid,jdbcType=INTEGER},
+                </if>
+                <if test="msg != null">
+                    msg = #{msg,jdbcType=VARCHAR},
+                </if>
+                <if test="sendTime != null">
+                    send_time = #{sendTime,jdbcType=TIMESTAMP},
+                </if>
+                <if test="state != null">
+                    state = #{state,jdbcType=TINYINT},
+                </if>
+        </set>
+        where  
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.lcy.dao.Log">
+        update log
+        set 
+            lid =  #{lid,jdbcType=INTEGER},
+            man =  #{man,jdbcType=VARCHAR},
+            cid =  #{cid,jdbcType=INTEGER},
+            msg =  #{msg,jdbcType=VARCHAR},
+            send_time =  #{sendTime,jdbcType=TIMESTAMP},
+            state =  #{state,jdbcType=TINYINT}
+        where  
+    </update>
+
+
+    <update id="updateStateByLid">
+        update log
+         set  state=#{state}
+         where  lid= #{lid}
+    </update>
+</mapper>
